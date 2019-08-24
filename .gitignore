@@ -5,3 +5,9 @@ test/
 *.exe
 *.dll
 **/bin
+
+build/
+dist/
+myDist/
+*.spec
+*.zip
