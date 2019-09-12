@@ -175,6 +175,85 @@
        <attribute name="title">
         <string>交通</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="title">
+             <string>输入</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_tran_ipt"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_tran_ipt">
+                 <property name="text">
+                  <string>浏览</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_tran_demo">
+                 <property name="text">
+                  <string>查看示例</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_5">
+            <property name="title">
+             <string>计算</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <item>
+                <widget class="QPushButton" name="pushButton_tran_simTest">
+                 <property name="text">
+                  <string>交通模拟（测试）</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_tran_sim">
+                 <property name="text">
+                  <string>交通模拟</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_6">
+            <property name="title">
+             <string>后处理</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <widget class="QPushButton" name="pushButton_tran_post">
+               <property name="text">
+                <string>提取结果</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -215,7 +294,18 @@
     <property name="title">
      <string>帮助</string>
     </property>
-    <addaction name="action"/>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>文档</string>
+     </property>
+     <addaction name="action_help_doc_blg"/>
+     <addaction name="action_help_doc_tran"/>
+     <addaction name="action_help_doc_life"/>
+     <addaction name="action_help_doc_cri"/>
+    </widget>
+    <addaction name="menu_3"/>
+    <addaction name="separator"/>
+    <addaction name="action_help_version"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -245,9 +335,29 @@
     <string>退出</string>
    </property>
   </action>
-  <action name="action">
+  <action name="action_help_version">
    <property name="text">
-    <string>联系我们</string>
+    <string>版本信息</string>
+   </property>
+  </action>
+  <action name="action_help_doc_blg">
+   <property name="text">
+    <string>建筑</string>
+   </property>
+  </action>
+  <action name="action_help_doc_tran">
+   <property name="text">
+    <string>交通</string>
+   </property>
+  </action>
+  <action name="action_help_doc_life">
+   <property name="text">
+    <string>生命线</string>
+   </property>
+  </action>
+  <action name="action_help_doc_cri">
+   <property name="text">
+    <string>韧性评价指标</string>
    </property>
   </action>
  </widget>

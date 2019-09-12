@@ -21,35 +21,63 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
     # signals and slots
     def _buildSignalAndSlot(self):
-        # building
-        ## input
-        self.ui.pushButton_gmOpen.clicked.connect(self._gm_open)
-        self.ui.pushButton_gmEg.clicked.connect(self._gm_eg)
+        ########## menu ##########
+        self.ui.action_help_doc_tran.triggered.connect(self._menu_help_doc_tran)
+        self.ui.action_help_version.triggered.connect(self._menu_help_version)
+
+        ########## building ##########
+        self.ui.pushButton_gmOpen.clicked.connect(self._blg_gm_open)
+        self.ui.pushButton_gmEg.clicked.connect(self._blg_gm_eg)
         self.ui.pushButton_blgOpen.clicked.connect(self._blg_open)
         self.ui.pushButton_blgEg.clicked.connect(self._blg_eg)
-        self.ui.pushButton_blgleOpen.clicked.connect(self._blgle_open)
-        self.ui.pushButton_blgleEg.clicked.connect(self._blgle_eg)
+        self.ui.pushButton_blgleOpen.clicked.connect(self._blg_le_open)
+        self.ui.pushButton_blgleEg.clicked.connect(self._blg_le_eg)
 
-        ## calculate
-        self.ui.pushButton_tha.clicked.connect(self._tha)
-        self.ui.pushButton_le.clicked.connect(self._loss_estimate)
+        self.ui.pushButton_tha.clicked.connect(self._blg_tha)
+        self.ui.pushButton_le.clicked.connect(self._blg_loss_estimate)
 
-        ## postprocess
-        self.ui.pushButton_post.clicked.connect(self._post_process)
+        self.ui.pushButton_post.clicked.connect(self._blg_postprocess)
 
-        # TODO: transport, lifeline
+        ########## transport ##########
+        self.ui.pushButton_tran_ipt.clicked.connect(self._tran_ipt)
+        self.ui.pushButton_tran_demo.clicked.connect(self._tran_demo)
 
-    ## building
-    def _gm_open(self):
+        self.ui.pushButton_tran_simTest.clicked.connect(self._tran_sim_test)
+        self.ui.pushButton_tran_sim.clicked.connect(self._tran_sim)
+
+        self.ui.pushButton_tran_post.clicked.connect(self._tran_post)
+
+        # TODO: lifeline, criteria
+
+    ########## menu ##########
+    def _menu_help_doc_tran(self):
+        try:
+            os.system('start ./doc/transport/使用说明01.docx')
+        except:
+            QMessageBox.warning(self, '错误', '无法打开说明文档！')
+
+    def _menu_help_version(self):
+        QMessageBox.information(self,
+                                '版本信息',
+                                '韧性评价集成平台\n'
+                                '\n'
+                                '开发者：清华大学土木工程系暨建设管理系\n'
+                                '版本信息：v0.2 （内测）\n'
+                                '最近更新：2019/9/12\n'
+                                '\n'
+                                'Copyright © 2019-2019 北京市地震局. All Rights Reserved.')
+
+    ########## building ##########
+    def _blg_gm_open(self):
         self.gmPath, filetype = QFileDialog.getOpenFileName(self, '打开', './', 'All Files (*);;Text Files (*.txt)')
         if self.gmPath[-4:] == '.txt':
             self.ui.lineEdit_gm.setText(self.gmPath)
         else:
             QMessageBox.warning(self, '错误', '地震动文件应为txt格式！')
 
-    def _gm_eg(self):
+    def _blg_gm_eg(self):
         try:
-            os.system('notepad ' + './example/ground_motion.txt')
+            os.system('notepad ' + './demo/building/ground_motion.txt')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
 
@@ -62,24 +90,24 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
     def _blg_eg(self):
         try:
-            os.system('notepad ' + './example/BlgAttributes.txt')
+            os.system('notepad ' + './demo/building/BlgAttributes.txt')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
 
-    def _blgle_open(self):
+    def _blg_le_open(self):
         self.blglePath, filetype = QFileDialog.getOpenFileName(self, '打开', './', 'All Files (*);;CSV Files (*.csv)')
         if self.blglePath[-4:] == '.csv':
             self.ui.lineEdit_blgle.setText(self.blglePath)
         else:
             QMessageBox.warning(self, '错误', '建筑属性文件（损失估计）应为csv格式！')
 
-    def _blgle_eg(self):
+    def _blg_le_eg(self):
         try:
-            os.system('notepad ' + './example/BuildingsInfo-Tsinghua.csv')
+            os.system('notepad ' + './demo/building/BuildingsInfo-Tsinghua.csv')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
 
-    def _tha(self):
+    def _blg_tha(self):
         rootDir = os.getcwd()
         workDir = rootDir + '/building/tha'
 
@@ -110,7 +138,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
         except:
             QMessageBox.warning(self, '错误', '无法启动震害模拟！')
 
-    def _loss_estimate(self):
+    def _blg_loss_estimate(self):
         rootDir = os.getcwd()
         workDir = rootDir + '/building/loss'
         os.chdir(workDir)
@@ -140,7 +168,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
         os.chdir(rootDir)
 
-    def _post_process(self):
+    def _blg_postprocess(self):
         if not os.path.exists('./results'):
             os.mkdir('./results')
         if not os.path.exists('./results/building'):
@@ -155,9 +183,72 @@ class MyMainWindow(QtWidgets.QMainWindow):
             shutil.copy(src, dst)
             QMessageBox.information(self, '信息', '结果提取完成！')
         except:
-            QMessageBox.information(self, '错误', '结果提取失败！')
+            QMessageBox.warning(self, '错误', '结果提取失败！')
 
-    # other functions
+    ########## transport ##########
+    def _tran_ipt(self):
+        self.tranIptPath, filetype = QFileDialog.getOpenFileName(self, '打开', './',
+                                                                 'All Files (*);;Excel Files (*.xlsx)')
+        if self.tranIptPath[-5:] == '.xlsx':
+            self.ui.lineEdit_tran_ipt.setText(self.tranIptPath)
+        else:
+            QMessageBox.warning(self, '错误', '交通输入文件应为xlsx格式！')
+
+    def _tran_demo(self):
+        try:
+            os.system('start ./demo/transport/input_sampleQHY.xlsx')
+        except:
+            QMessageBox.warning(self, '错误', '无法打开示例文件！')
+
+    def _tran_sim_test(self):
+        rootDir = os.getcwd()
+        workDir = rootDir + '/transport'
+
+        try:
+            dst = workDir + '/input.xlsx'
+            shutil.copy(self.tranIptPath, dst)
+        except:
+            QMessageBox.warning(self, '错误', '输入文件获取失败！')
+
+        try:
+            os.chdir(workDir)
+            os.system('matlab -nosplash -nodesktop -r ' + 'transportation01_20iter')
+            os.chdir(rootDir)
+        except:
+            QMessageBox.warning(self, '错误', '无法启动交通模拟（测试）！')
+
+    def _tran_sim(self):
+        rootDir = os.getcwd()
+        workDir = rootDir + '/transport'
+
+        try:
+            dst = workDir + '/input.xlsx'
+            shutil.copy(self.tranIptPath, dst)
+        except:
+            QMessageBox.warning(self, '错误', '输入文件获取失败！')
+
+        try:
+            os.chdir(workDir)
+            os.system('matlab -nosplash -nodesktop -r ' + 'transportation01')
+            os.chdir(rootDir)
+        except:
+            QMessageBox.warning(self, '错误', '无法启动交通模拟！')
+
+    def _tran_post(self):
+        if not os.path.exists('./results'):
+            os.mkdir('./results')
+        if not os.path.exists('./results/transport'):
+            os.mkdir('./results/transport')
+
+        try:
+            src = './transport/output.xlsx'
+            dst = './results/transport/output.xlsx'
+            shutil.copy(src, dst)
+            QMessageBox.information(self, '信息', '结果提取完成！')
+        except:
+            QMessageBox.warning(self, '错误', '结果提取失败！')
+
+    # TODO: other functions
 
 
 def exec():
