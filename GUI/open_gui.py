@@ -22,6 +22,8 @@ class MyMainWindow(QtWidgets.QMainWindow):
     # signals and slots
     def _buildSignalAndSlot(self):
         ########## menu ##########
+        self.ui.action_view_result.triggered.connect(self._menu_view_results)
+
         self.ui.action_help_doc_tran.triggered.connect(self._menu_help_doc_tran)
         self.ui.action_help_version.triggered.connect(self._menu_help_version)
 
@@ -50,6 +52,13 @@ class MyMainWindow(QtWidgets.QMainWindow):
         # TODO: lifeline, criteria
 
     ########## menu ##########
+    def _menu_view_results(self):
+        rootDir=os.getcwd()
+        try:
+            os.system('explorer.exe '+rootDir+'\\results')
+        except:
+            QMessageBox.warning(self, '错误', '无法打开结果文件夹！')
+
     def _menu_help_doc_tran(self):
         try:
             os.system('start ./doc/transport/使用说明01.docx')

@@ -307,7 +307,14 @@
     <addaction name="separator"/>
     <addaction name="action_help_version"/>
    </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>查看</string>
+    </property>
+    <addaction name="action_view_result"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menu_4"/>
    <addaction name="menu_2"/>
   </widget>
   <action name="action_new">
@@ -358,6 +365,16 @@
   <action name="action_help_doc_cri">
    <property name="text">
     <string>韧性评价指标</string>
+   </property>
+  </action>
+  <action name="actiond">
+   <property name="text">
+    <string>打开结果文件夹</string>
+   </property>
+  </action>
+  <action name="action_view_result">
+   <property name="text">
+    <string>结果文件夹</string>
    </property>
   </action>
  </widget>

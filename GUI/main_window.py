@@ -165,6 +165,8 @@ class Ui_MainWindow(object):
         self.menu_2.setObjectName("menu_2")
         self.menu_3 = QtWidgets.QMenu(self.menu_2)
         self.menu_3.setObjectName("menu_3")
+        self.menu_4 = QtWidgets.QMenu(self.menubar)
+        self.menu_4.setObjectName("menu_4")
         MainWindow.setMenuBar(self.menubar)
         self.action_new = QtWidgets.QAction(MainWindow)
         self.action_new.setObjectName("action_new")
@@ -186,6 +188,10 @@ class Ui_MainWindow(object):
         self.action_help_doc_life.setObjectName("action_help_doc_life")
         self.action_help_doc_cri = QtWidgets.QAction(MainWindow)
         self.action_help_doc_cri.setObjectName("action_help_doc_cri")
+        self.actiond = QtWidgets.QAction(MainWindow)
+        self.actiond.setObjectName("actiond")
+        self.action_view_result = QtWidgets.QAction(MainWindow)
+        self.action_view_result.setObjectName("action_view_result")
         self.menu.addAction(self.action_new)
         self.menu.addAction(self.action_open)
         self.menu.addSeparator()
@@ -200,7 +206,9 @@ class Ui_MainWindow(object):
         self.menu_2.addAction(self.menu_3.menuAction())
         self.menu_2.addSeparator()
         self.menu_2.addAction(self.action_help_version)
+        self.menu_4.addAction(self.action_view_result)
         self.menubar.addAction(self.menu.menuAction())
+        self.menubar.addAction(self.menu_4.menuAction())
         self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -241,6 +249,7 @@ class Ui_MainWindow(object):
         self.menu.setTitle(_translate("MainWindow", "文件"))
         self.menu_2.setTitle(_translate("MainWindow", "帮助"))
         self.menu_3.setTitle(_translate("MainWindow", "文档"))
+        self.menu_4.setTitle(_translate("MainWindow", "查看"))
         self.action_new.setText(_translate("MainWindow", "新建"))
         self.action_open.setText(_translate("MainWindow", "打开"))
         self.action_save.setText(_translate("MainWindow", "保存"))
@@ -251,6 +260,8 @@ class Ui_MainWindow(object):
         self.action_help_doc_tran.setText(_translate("MainWindow", "交通"))
         self.action_help_doc_life.setText(_translate("MainWindow", "生命线"))
         self.action_help_doc_cri.setText(_translate("MainWindow", "韧性评价指标"))
+        self.actiond.setText(_translate("MainWindow", "打开结果文件夹"))
+        self.action_view_result.setText(_translate("MainWindow", "结果文件夹"))
 
 
 if __name__ == "__main__":
