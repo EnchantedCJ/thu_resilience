@@ -61,7 +61,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
     def _menu_help_doc_tran(self):
         try:
-            os.system('start ./doc/transport/使用说明01.docx')
+            os.system('start ./doc/transport/使用说明02.docx')
         except:
             QMessageBox.warning(self, '错误', '无法打开说明文档！')
 
@@ -74,7 +74,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
                                 '版本信息：v0.2 （内测）\n'
                                 '最近更新：2019/9/12\n'
                                 '\n'
-                                'Copyright © 2019-2019 北京市地震局. All Rights Reserved.')
+                                'Copyright © 2019-2019 北京市地震局.')
 
     ########## building ##########
     def _blg_gm_open(self):
@@ -221,7 +221,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
         try:
             os.chdir(workDir)
-            os.system('matlab -nosplash -nodesktop -r ' + 'transportation01_20iter')
+            os.system('matlab -nosplash -nodesktop -r ' + 'transportation02_20iter')
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动交通模拟（测试）！')
@@ -238,7 +238,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
         try:
             os.chdir(workDir)
-            os.system('matlab -nosplash -nodesktop -r ' + 'transportation01')
+            os.system('matlab -nosplash -nodesktop -r ' + 'transportation02')
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动交通模拟！')
