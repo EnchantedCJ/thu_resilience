@@ -1,0 +1,193 @@
+{
+	"version": 1,
+	"components": [
+	{
+		"name": "SteelMomentFrame",
+		"candidates": ["B1035.021"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [10,0], "direction2": [16,0], "nondirectional": [0,0]},
+			{"floor": 1, "direction1": [10,0], "direction2": [28,0], "nondirectional": [0,0]}
+		]
+	},
+	{
+		"name": "SteelMomentFrame",
+		"candidates": ["B1035.031"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [28,0], "direction2": [24,0], "nondirectional": [0,0]},
+			{"floor": 1, "direction1": [30,0], "direction2": [6,0], "nondirectional": [0,0]}
+		]
+	},
+	{
+		"name": "ExteriorNonstructuralWall",
+		"candidates": ["B2011.011a", "B2011.011b", "B2011.021a", "B2011.021b", "B2011.101", "B2011.131"],
+		"unit": 9.29,
+		"quantities": [
+			{"floor": 0, "direction1": [270,0.6], "direction2": [270,0.6], "nondirectional": [0,0]},
+			{"floor": 1, "direction1": [270,0.6], "direction2": [270,0.6], "nondirectional": [0,0]}
+		]
+	},
+	{
+		"name": "InteriorPartition",
+		"candidates": ["C1011.001b", "C1011.001c", "C1011.001d", "C1011.011a"],
+		"unit": 120.77,
+		"quantities": [
+			{"floor": 0, "direction1": [1170,0.2], "direction2": [1170,0.2], "nondirectional": [0,0]},
+			{"floor": 1, "direction1": [1170,0.2], "direction2": [1170,0.2], "nondirectional": [0,0]}
+		]
+	},
+	{
+		"name": "WallFinish",
+		"candidates": ["C3011.001a", "C3011.001b", "C3011.001c", "C3011.001d", "C3011.002a", "C3011.002b", "C3011.002c", "C3011.002d", "C3011.003a"],
+		"unit": 83.61,
+		"quantities": [
+			{"floor": 0, "direction1": [88.5,0.7], "direction2": [88.5,0.7], "nondirectional": [0,0]},
+			{"floor": 1, "direction1": [88.5,0.7], "direction2": [88.5,0.7], "nondirectional": [0,0]}
+		]
+	},
+	{
+		"name": "Stair",
+		"candidates": ["C2011.001b", "C2011.011b"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [1,0.2], "direction2": [1,0.2], "nondirectional": [0,0]},
+			{"floor": 1, "direction1": [1,0.2], "direction2": [1,0.2], "nondirectional": [0,0]}
+		]
+	},
+	{
+		"name": "SuspendedCeiling",
+		"candidates": ["C3032.001a", "C3032.001b", "C3032.001c", "C3032.001d"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [1746,0]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [1746,0]}
+		]
+	},
+	{
+		"name": "PendantLighting",
+		"candidates": ["C3034.001", "C3034.002"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [290.6,0.3]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [290.6,0.3]}
+		]
+	},
+	{
+		"name": "Elevator",
+		"candidates": ["D1014.011"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [0.5,0.7]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [0.5,0.7]}
+		]
+	},
+	{
+		"name": "ColdOrHotWaterPiping",
+		"candidates": ["D2021.012b", "D2021.022a"],
+		"unit": 304.8,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [88.6,0.2]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [88.6,0.2]}
+		]
+	},
+	{
+		"name": "Chiller",
+		"candidates": ["D3031.011a", "D3031.011b", "D3031.011c", "D3031.011d", "D3031.012b", "D3031.012e", "D3031.012h", "D3031.012k", "D3031.013b", "D3031.013e", "D3031.013h", "D3031.013k"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [55.2,0.1]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [55.2,0.1]}
+		]
+	},
+	{
+		"name": "HVAC_Ducting",
+		"candidates": ["D3041.011b", "D3041.021b"],
+		"unit": 304.8,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [442.9,0.2]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [442.9,0.2]}
+		]
+	},
+	{
+		"name": "HVAC_Ducting",
+		"candidates": ["D3041.012b"],
+		"unit": 304.8,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [118.1,0.2]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [118.1,0.2]}
+		]
+	},
+	{
+		"name": "HVAC_Diffuser",
+		"candidates": ["D3041.031b", "D3041.032b"],
+		"unit": 10,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [174.4,0.5]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [174.4,0.5]}
+		]
+	},
+	{
+		"name": "VAV_Box",
+		"candidates": ["D3041.041b"],
+		"unit": 10,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [38.8,0.5]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [38.8,0.5]}
+		]
+	},
+	{
+		"name": "HVAC_Fan",
+		"candidates": ["D3041.101a", "D3041.102b", "D3041.103b"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [0,0]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [0,0]}
+		]
+	},
+	{
+		"name": "AirHandlingUnit",
+		"candidates": ["D3052.011a", "D3052.011b", "D3052.011c", "D3052.011d", "D3052.013b", "D3052.013e", "D3052.013h", "D3052.013k"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [13562.5,0.2]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [13562.5,0.2]}
+		]
+	},
+	{
+		"name": "FireSprinklerPiping",
+		"candidates": ["D4011.022a"],
+		"unit": 304.8,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [1181.1,0.1]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [1181.1,0.1]}
+		]
+	},
+	{
+		"name": "FireSprinklerDrop",
+		"candidates": ["D4011.032a", "D4011.042a"],
+		"unit": 100,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [174.4,0.2]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [174.4,0.2]}
+		]
+	},
+	{
+		"name": "LowVoltageSwitchgear",
+		"candidates": ["D5012.021a", "D5012.021b", "D5012.021c", "D5012.021d", "D5012.023b", "D5012.023e", "D5012.023h", "D5012.023k"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [5.8,0.4]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [5.8,0.4]}
+		]
+	},
+	{
+		"name": "DistributionPanel",
+		"candidates": ["D5012.031a", "D5012.031b", "D5012.031c", "D5012.031d", "D5012.033b", "D5012.033e", "D5012.033h", "D5012.033k"],
+		"unit": 1,
+		"quantities": [
+			{"floor": 0, "direction1": [0,0], "direction2": [0,0], "nondirectional": [0.8,0.5]},
+			{"floor": 1, "direction1": [0,0], "direction2": [0,0], "nondirectional": [0.8,0.5]}
+		]
+	}]
+}

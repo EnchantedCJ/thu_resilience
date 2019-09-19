@@ -34,34 +34,6 @@
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>地震动</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QLineEdit" name="lineEdit_gm"/>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_gmOpen">
-                 <property name="text">
-                  <string>浏览</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_gmEg">
-                 <property name="text">
-                  <string>查看示例</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
               <widget class="QLabel" name="label_2">
                <property name="text">
                 <string>建筑属性（震害模拟）</string>
@@ -219,14 +191,14 @@
                <item>
                 <widget class="QPushButton" name="pushButton_tran_simTest">
                  <property name="text">
-                  <string>交通模拟（测试）</string>
+                  <string>交通模拟（20次）</string>
                  </property>
                 </widget>
                </item>
                <item>
                 <widget class="QPushButton" name="pushButton_tran_sim">
                  <property name="text">
-                  <string>交通模拟</string>
+                  <string>交通模拟（500次）</string>
                  </property>
                 </widget>
                </item>

@@ -9,7 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
 from PyQt5.QtCore import QProcess
 
-from building.loss import EDPsFormatterExec
+from building.script.EDPsFormatter import EDPsFormatterExec
 
 
 class MyMainWindow(QtWidgets.QMainWindow):
@@ -28,8 +28,8 @@ class MyMainWindow(QtWidgets.QMainWindow):
         self.ui.action_help_version.triggered.connect(self._menu_help_version)
 
         ########## building ##########
-        self.ui.pushButton_gmOpen.clicked.connect(self._blg_gm_open)
-        self.ui.pushButton_gmEg.clicked.connect(self._blg_gm_eg)
+        # self.ui.pushButton_gmOpen.clicked.connect(self._blg_gm_open)
+        # self.ui.pushButton_gmEg.clicked.connect(self._blg_gm_eg)
         self.ui.pushButton_blgOpen.clicked.connect(self._blg_open)
         self.ui.pushButton_blgEg.clicked.connect(self._blg_eg)
         self.ui.pushButton_blgleOpen.clicked.connect(self._blg_le_open)
@@ -53,9 +53,9 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
     ########## menu ##########
     def _menu_view_results(self):
-        rootDir=os.getcwd()
+        rootDir = os.getcwd()
         try:
-            os.system('explorer.exe '+rootDir+'\\results')
+            os.system('explorer.exe ' + rootDir + '\\results')
         except:
             QMessageBox.warning(self, '错误', '无法打开结果文件夹！')
 
@@ -77,18 +77,18 @@ class MyMainWindow(QtWidgets.QMainWindow):
                                 'Copyright © 2019-2019 北京市地震局.')
 
     ########## building ##########
-    def _blg_gm_open(self):
-        self.gmPath, filetype = QFileDialog.getOpenFileName(self, '打开', './', 'All Files (*);;Text Files (*.txt)')
-        if self.gmPath[-4:] == '.txt':
-            self.ui.lineEdit_gm.setText(self.gmPath)
-        else:
-            QMessageBox.warning(self, '错误', '地震动文件应为txt格式！')
-
-    def _blg_gm_eg(self):
-        try:
-            os.system('notepad ' + './demo/building/ground_motion.txt')
-        except:
-            QMessageBox.warning(self, '错误', '无法打开示例文件！')
+    # def _blg_gm_open(self):
+    #     self.gmPath, filetype = QFileDialog.getOpenFileName(self, '打开', './', 'All Files (*);;Text Files (*.txt)')
+    #     if self.gmPath[-4:] == '.txt':
+    #         self.ui.lineEdit_gm.setText(self.gmPath)
+    #     else:
+    #         QMessageBox.warning(self, '错误', '地震动文件应为txt格式！')
+    #
+    # def _blg_gm_eg(self):
+    #     try:
+    #         os.system('notepad ' + './demo/building/ground_motion.txt')
+    #     except:
+    #         QMessageBox.warning(self, '错误', '无法打开示例文件！')
 
     def _blg_open(self):
         self.blgPath, filetype = QFileDialog.getOpenFileName(self, '打开', './', 'All Files (*);;Text Files (*.txt)')
@@ -121,57 +121,83 @@ class MyMainWindow(QtWidgets.QMainWindow):
         workDir = rootDir + '/building/tha'
 
         # prepare files
-        ## ground motion
-        try:
-            self.gmFile = self.gmPath.split('/')[-1]
-            self.gmName = self.gmFile.strip('.txt')
-            dst = workDir + '/GMs/' + self.gmFile
-            shutil.copy(self.gmPath, dst)
-            with open(workDir + '/inputs/EQ_List.txt', 'w', encoding='utf-8') as f:
-                f.write(self.gmName)
-        except:
-            QMessageBox.warning(self, '错误', '地震动文件获取失败！')
+        # ## ground motion
+        # try:
+        #     self.gmFile = self.gmPath.split('/')[-1]
+        #     self.gmName = self.gmFile.strip('.txt')
+        #     dst = workDir + '/GMs/' + self.gmFile
+        #     shutil.copy(self.gmPath, dst)
+        #     with open(workDir + '/inputs/EQ_List.txt', 'w', encoding='utf-8') as f:
+        #         f.write(self.gmName)
+        # except:
+        #     QMessageBox.warning(self, '错误', '地震动文件获取失败！')
 
         ## building attributes
         try:
-            dst = workDir + '/inputs/BlgAttributes.txt'
-            shutil.copy(self.blgPath, dst)
+            for pga in [0.2, 0.3, 0.4]:
+                for direction in ['x', 'y']:
+                    dst = workDir + '/' + str(pga) + '/' + direction + '/inputs/BlgAttributes-cache.txt'
+                    shutil.copy(self.blgPath, dst)
+                    fin = open(dst, 'r', encoding='utf-8')
+                    fout = open(workDir + '/' + str(pga) + '/' + direction + '/inputs/BlgAttributes.txt', 'w',
+                                encoding='utf-8')
+                    # line 1-2
+                    fout.write(fin.readline())
+                    fout.write(fin.readline())
+                    # line 3-
+                    reduct = {'x': 1, 'y': 0.85}
+                    for line in fin.readlines():
+                        temp = line.split()
+                        temp[13] = str(pga * 10 * reduct[direction])  # pga
+                        newline = '\t'.join(temp)
+                        fout.write(newline)
+                    fin.close()
+                    fout.close()
         except:
             QMessageBox.warning(self, '错误', '建筑属性文件（震害模拟）获取失败！')
 
         # computing
         try:
-            os.chdir(workDir)
-            subprocess.Popen('Flexural_Shear_X.exe', creationflags=subprocess.CREATE_NEW_CONSOLE)
-            os.chdir(rootDir)
+            for pga in [0.2, 0.3, 0.4]:
+                for direction in ['x', 'y']:
+                    os.chdir(workDir + '/' + str(pga) + '/' + direction)
+                    subprocess.Popen('Flexural_Shear_X.exe', creationflags=subprocess.CREATE_NEW_CONSOLE)
         except:
             QMessageBox.warning(self, '错误', '无法启动震害模拟！')
+
+        os.chdir(rootDir)
 
     def _blg_loss_estimate(self):
         rootDir = os.getcwd()
         workDir = rootDir + '/building/loss'
-        os.chdir(workDir)
 
         # prepare files
         ## building attributes
         try:
-            dst = workDir + '/LossEstimator/input/BuildingsInfo.csv'
-            shutil.copy(self.blglePath, dst)
+            for pga in [0.2, 0.3, 0.4]:
+                for direction in ['x', 'y']:
+                    dst = workDir + '/' + str(pga) + '/' + direction + '/input/BuildingsInfo.csv'
+                    shutil.copy(self.blglePath, dst)
         except:
             QMessageBox.warning(self, '错误', '建筑属性文件（损失估计）获取失败！')
 
         ## edps
         try:
-            EDPsFormatterExec.main({'numEQ': 1, 'idr2comp': True})
+            for pga in [0.2, 0.3, 0.4]:
+                for direction in ['x', 'y']:
+                    dirIn = rootDir + '/building/tha/' + str(pga) + '/' + direction + '/Results/EDPs.txt'
+                    dirOut = workDir + '/' + str(pga) + '/' + direction + '/input/Edps.txt'
+                    dirAttr = rootDir + '/building/tha/' + str(pga) + '/' + direction + '/inputs/BlgAttributes.txt'
+                    EDPsFormatterExec.main(dirIn, dirOut, dirAttr, {'numEQ': 11, 'idr2comp': True})
         except:
             QMessageBox.warning(self, '错误', 'EDP文件获取失败！')
 
         # computing
         try:
-            print('hello')
-            os.chdir(workDir + '/LossEstimator')
-            subprocess.Popen('LossEstimator.exe', creationflags=subprocess.CREATE_NEW_CONSOLE)
-            print('bye')
+            for pga in [0.2, 0.3, 0.4]:
+                for direction in ['x', 'y']:
+                    os.chdir(workDir + '/' + str(pga) + '/' + direction)
+                    subprocess.Popen('LossEstimator.exe', creationflags=subprocess.CREATE_NEW_CONSOLE)
         except:
             QMessageBox.warning(self, '错误', '无法启动损失估计！')
 

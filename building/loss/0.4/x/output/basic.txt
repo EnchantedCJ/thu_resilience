@@ -1,0 +1,2 @@
+ID	Name	LossMedian	DowntimeMedian	RedTagProbability	LossP10	LossP90	DowntimeP16	DowntimeP84	HurtMedian	HurtP16	HurtP84	DeathMedian	DeathP16	DeathP84
+0	bld-00	1.44214e+06	110.951	0.02	690624	2.92287e+06	51.5344	179	0.0001875	0.0001125	0.00370268	1.875e-05	6.25e-06	0.0006375	

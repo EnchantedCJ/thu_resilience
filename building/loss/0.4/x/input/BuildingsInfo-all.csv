@@ -1,0 +1,14 @@
+version,1,,,,,,,,,,,,,,
+id,name,strutype,year,occupancy,nStory,storyheight,area,replacementCost,clpsMedian,clpsDispersion,residualMedian,residualDispersion,intensity,autoGenComponents,totalRepairTime(day)
+0,bld-00,W1,2000,office,12,4,3500,4000000,15,0.5,0.0125,0.3,5,1,180
+1,bld-01,W2,1991,education,2,4,2000,4000000,15,0.5,0.0125,0.3,5,1,160
+2,bld-02,C1,1982,healthcare,3,4,2000,4000000,15,0.5,0.0125,0.3,5,1,160
+3,bld-03,C2,1973,hospitality,4,4,2000,4000000,15,0.5,0.0125,0.3,5,1,160
+4,bld-04,S1,1964,office,2,4,2000,4000000,15,0.5,0.0125,0.3,5,1,160
+5,bld-05,S2,2000,residence,2,4,2000,4000000,15,0.5,0.0125,0.3,5,1,160
+6,bld-06,URM,1946,research,1,4,2000,4000000,15,0.5,0.0125,0.3,5,1,160
+7,bld-07,RM1,1937,research,1,4,2000,4000000,15,0.5,0.0125,0.3,5,1,160
+8,bld-08,RM2,1928,research,1,4,2000,4000000,15,0.5,0.0125,0.3,5,1,160
+9,bld-09,URM,1919,research,5,4,2000,4000000,15,0.5,0.0125,0.3,5,1,160
+201,Fan's frame,C1,1990,office,6,3.7,352.8,4509616.219,999,0.5,999,0.3,4,0,180
+202,Yang's tallbuilding,C2,1990,residence,18,2.9,787,25561704,999,0.5,0.0125,0.3,4,0,360

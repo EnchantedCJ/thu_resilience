@@ -1,0 +1,4 @@
+ Time of Reading:    1.35600000000000     
+ Time of Computing:    9.89600000000000     
+ Time of Writing:   0.299000000000000     
+ Total Time:    11.5520000000000     

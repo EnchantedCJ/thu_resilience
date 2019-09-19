@@ -1,0 +1,1 @@
+  BuildingID     GroundMotion    time(s)
