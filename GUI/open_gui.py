@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QMessageBox, QFileDialog
 from PyQt5.QtCore import QProcess
 
 from building.script.EDPsFormatter import EDPsFormatterExec
+from building.script import blg_post
 
 
 class MyMainWindow(QtWidgets.QMainWindow):
@@ -24,6 +25,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
         ########## menu ##########
         self.ui.action_view_result.triggered.connect(self._menu_view_results)
 
+        self.ui.action_help_doc_blg.triggered.connect(self._menu_help_doc_blg)
         self.ui.action_help_doc_tran.triggered.connect(self._menu_help_doc_tran)
         self.ui.action_help_version.triggered.connect(self._menu_help_version)
 
@@ -34,6 +36,8 @@ class MyMainWindow(QtWidgets.QMainWindow):
         self.ui.pushButton_blgEg.clicked.connect(self._blg_eg)
         self.ui.pushButton_blgleOpen.clicked.connect(self._blg_le_open)
         self.ui.pushButton_blgleEg.clicked.connect(self._blg_le_eg)
+        self.ui.pushButton_blg_funcOpen.clicked.connect(self._blg_func_open)
+        self.ui.pushButton_blg_funcDemo.clicked.connect(self._blg_func_demo)
 
         self.ui.pushButton_tha.clicked.connect(self._blg_tha)
         self.ui.pushButton_le.clicked.connect(self._blg_loss_estimate)
@@ -59,6 +63,12 @@ class MyMainWindow(QtWidgets.QMainWindow):
         except:
             QMessageBox.warning(self, '错误', '无法打开结果文件夹！')
 
+    def _menu_help_doc_blg(self):
+        try:
+            os.system('start ./doc/building/doc_building.txt')
+        except:
+            QMessageBox.warning(self, '错误', '无法打开说明文档！')
+
     def _menu_help_doc_tran(self):
         try:
             os.system('start ./doc/transport/使用说明02.docx')
@@ -71,8 +81,8 @@ class MyMainWindow(QtWidgets.QMainWindow):
                                 '韧性评价集成平台\n'
                                 '\n'
                                 '开发者：清华大学土木工程系暨建设管理系\n'
-                                '版本信息：v0.2 （内测）\n'
-                                '最近更新：2019/9/12\n'
+                                '版本信息：v0.3 （内测）\n'
+                                '最近更新：2019/9/19\n'
                                 '\n'
                                 'Copyright © 2019-2019 北京市地震局.')
 
@@ -113,6 +123,19 @@ class MyMainWindow(QtWidgets.QMainWindow):
     def _blg_le_eg(self):
         try:
             os.system('notepad ' + './demo/building/BuildingsInfo-Tsinghua.csv')
+        except:
+            QMessageBox.warning(self, '错误', '无法打开示例文件！')
+
+    def _blg_func_open(self):
+        self.blgFuncPath, filetype = QFileDialog.getOpenFileName(self, '打开', './', 'All Files (*);;Text Files (*.txt)')
+        if self.blgFuncPath[-4:] == '.txt':
+            self.ui.lineEdit_blg_func.setText(self.blgFuncPath)
+        else:
+            QMessageBox.warning(self, '错误', '建筑功能文件（用于韧性指标）应为txt格式！')
+
+    def _blg_func_demo(self):
+        try:
+            os.system('notepad ' + './demo/building/BlgFunction.txt')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
 
@@ -210,15 +233,26 @@ class MyMainWindow(QtWidgets.QMainWindow):
             os.mkdir('./results/building')
 
         try:
-            src = './building/tha/Results/DamageState.txt'
-            dst = './results/building/DamageState.txt'
-            shutil.copy(src, dst)
-            src = './building/loss/LossEstimator/output/basic.txt'
-            dst = './results/building/basic.txt'
-            shutil.copy(src, dst)
+            for pga in [0.2, 0.3, 0.4]:
+                if not os.path.exists('./results/building/' + str(pga)):
+                    os.mkdir('./results/building/' + str(pga))
+                for direction in ['x', 'y']:
+                    if not os.path.exists('./results/building/' + str(pga) + '/' + direction):
+                        os.mkdir('./results/building/' + str(pga) + '/' + direction)
+                    src = './building/tha/' + str(pga) + '/' + direction + '/Results/DamageState.txt'
+                    dst = './results/building/' + str(pga) + '/' + direction + '/DamageState.txt'
+                    shutil.copy(src, dst)
+                    src = './building/loss/' + str(pga) + '/' + direction + '/output/basic.txt'
+                    dst = './results/building/' + str(pga) + '/' + direction + '/basic.txt'
+                    shutil.copy(src, dst)
+
+            resultDir = './results/building'
+            blg_post.postprocess(self.blgFuncPath, resultDir)
+
             QMessageBox.information(self, '信息', '结果提取完成！')
         except:
             QMessageBox.warning(self, '错误', '结果提取失败！')
+
 
     ########## transport ##########
     def _tran_ipt(self):

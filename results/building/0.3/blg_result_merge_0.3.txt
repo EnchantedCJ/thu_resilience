@@ -1,0 +1,2 @@
+ID	lossMedian	lossP16	lossP84	downtimeMedian	downtimeP16	downtimeP84	hurtMedian	hurtP16	hurtP84	deathMedian	deathP16	deathP84	damageState
+0	920652.0	497737.0	1525465.0	655986.0	26.4669	150.921	9.375e-05	3.125e-05	0.00015	6.25e-06	0.0	1.25e-05	1

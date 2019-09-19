@@ -89,6 +89,34 @@
                </item>
               </layout>
              </item>
+             <item>
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>建筑功能（用于韧性指标）</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_10">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_blg_func"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_blg_funcOpen">
+                 <property name="text">
+                  <string>浏览</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_blg_funcDemo">
+                 <property name="text">
+                  <string>查看示例</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
             </layout>
            </widget>
           </item>
