@@ -259,11 +259,117 @@
        <attribute name="title">
         <string>生命线</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_14">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_13">
+          <item>
+           <widget class="QGroupBox" name="groupBox_7">
+            <property name="title">
+             <string>输入</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_15">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_life_ipt"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_life_ipt">
+                 <property name="text">
+                  <string>浏览</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_life_demo">
+                 <property name="text">
+                  <string>查看示例</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_8">
+            <property name="title">
+             <string>计算</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_16">
+             <item>
+              <widget class="QPushButton" name="pushButton_life_sim">
+               <property name="text">
+                <string>生命线模拟</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_9">
+            <property name="title">
+             <string>后处理</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_17">
+             <item>
+              <widget class="QPushButton" name="pushButton_life_post">
+               <property name="text">
+                <string>提取结果</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string>韧性评价指标</string>
+        <string>韧性指标</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_19">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_18">
+          <item>
+           <widget class="QGroupBox" name="groupBox_10">
+            <property name="title">
+             <string>计算</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_20">
+             <item>
+              <widget class="QPushButton" name="pushButton_cr_sim">
+               <property name="text">
+                <string>韧性指标计算</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_11">
+            <property name="title">
+             <string>后处理</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_21">
+             <item>
+              <widget class="QPushButton" name="pushButton_cr_post">
+               <property name="text">
+                <string>提取结果</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -298,6 +404,8 @@
      <property name="title">
       <string>文档</string>
      </property>
+     <addaction name="actions_help_doc_use"/>
+     <addaction name="separator"/>
      <addaction name="action_help_doc_blg"/>
      <addaction name="action_help_doc_tran"/>
      <addaction name="action_help_doc_life"/>
@@ -364,7 +472,7 @@
   </action>
   <action name="action_help_doc_cri">
    <property name="text">
-    <string>韧性评价指标</string>
+    <string>韧性指标</string>
    </property>
   </action>
   <action name="actiond">
@@ -375,6 +483,11 @@
   <action name="action_view_result">
    <property name="text">
     <string>结果文件夹</string>
+   </property>
+  </action>
+  <action name="actions_help_doc_use">
+   <property name="text">
+    <string>使用说明</string>
    </property>
   </action>
  </widget>

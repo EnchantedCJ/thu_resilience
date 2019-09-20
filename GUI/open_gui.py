@@ -11,6 +11,7 @@ from PyQt5.QtCore import QProcess
 
 from building.script.EDPsFormatter import EDPsFormatterExec
 from building.script import blg_post
+from criteria.script import cr_post
 
 
 class MyMainWindow(QtWidgets.QMainWindow):
@@ -24,7 +25,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
     def _buildSignalAndSlot(self):
         ########## menu ##########
         self.ui.action_view_result.triggered.connect(self._menu_view_results)
-
+        self.ui.actions_help_doc_use.triggered.connect(self._menu_help_doc_use)
         self.ui.action_help_doc_blg.triggered.connect(self._menu_help_doc_blg)
         self.ui.action_help_doc_tran.triggered.connect(self._menu_help_doc_tran)
         self.ui.action_help_version.triggered.connect(self._menu_help_version)
@@ -38,22 +39,26 @@ class MyMainWindow(QtWidgets.QMainWindow):
         self.ui.pushButton_blgleEg.clicked.connect(self._blg_le_eg)
         self.ui.pushButton_blg_funcOpen.clicked.connect(self._blg_func_open)
         self.ui.pushButton_blg_funcDemo.clicked.connect(self._blg_func_demo)
-
         self.ui.pushButton_tha.clicked.connect(self._blg_tha)
         self.ui.pushButton_le.clicked.connect(self._blg_loss_estimate)
-
         self.ui.pushButton_post.clicked.connect(self._blg_postprocess)
 
         ########## transport ##########
         self.ui.pushButton_tran_ipt.clicked.connect(self._tran_ipt)
         self.ui.pushButton_tran_demo.clicked.connect(self._tran_demo)
-
         self.ui.pushButton_tran_simTest.clicked.connect(self._tran_sim_test)
         self.ui.pushButton_tran_sim.clicked.connect(self._tran_sim)
-
         self.ui.pushButton_tran_post.clicked.connect(self._tran_post)
 
-        # TODO: lifeline, criteria
+        ########## lifeline ##########
+        self.ui.pushButton_life_ipt.clicked.connect(self._life_ipt)
+        self.ui.pushButton_life_demo.clicked.connect(self._life_demo)
+        self.ui.pushButton_life_sim.clicked.connect(self._life_sim)
+        self.ui.pushButton_life_post.clicked.connect(self._life_post)
+
+        ########## criteria ##########
+        self.ui.pushButton_cr_sim.clicked.connect(self._cr_sim)
+        self.ui.pushButton_cr_post.clicked.connect(self._cr_post)
 
     ########## menu ##########
     def _menu_view_results(self):
@@ -62,6 +67,12 @@ class MyMainWindow(QtWidgets.QMainWindow):
             os.system('explorer.exe ' + rootDir + '\\results')
         except:
             QMessageBox.warning(self, '错误', '无法打开结果文件夹！')
+
+    def _menu_help_doc_use(self):
+        try:
+            os.system('start notepad Readme.md')
+        except:
+            QMessageBox.warning(self, '错误', '无法打开说明文档！')
 
     def _menu_help_doc_blg(self):
         try:
@@ -75,14 +86,20 @@ class MyMainWindow(QtWidgets.QMainWindow):
         except:
             QMessageBox.warning(self, '错误', '无法打开说明文档！')
 
+    def _menu_help_doc_life(self):
+        pass
+
+    def _menu_help_doc_cr(self):
+        pass
+
     def _menu_help_version(self):
         QMessageBox.information(self,
                                 '版本信息',
                                 '韧性评价集成平台\n'
                                 '\n'
                                 '开发者：清华大学土木工程系暨建设管理系\n'
-                                '版本信息：v0.3 （内测）\n'
-                                '最近更新：2019/9/19\n'
+                                '版本信息：v0.4 （内测）\n'
+                                '最近更新：2019/9/20\n'
                                 '\n'
                                 'Copyright © 2019-2019 北京市地震局.')
 
@@ -109,7 +126,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
     def _blg_eg(self):
         try:
-            os.system('notepad ' + './demo/building/BlgAttributes.txt')
+            os.system('start notepad ' + './demo/building/BlgAttributes.txt')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
 
@@ -122,7 +139,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
     def _blg_le_eg(self):
         try:
-            os.system('notepad ' + './demo/building/BuildingsInfo-Tsinghua.csv')
+            os.system('start notepad ' + './demo/building/BuildingsInfo-Tsinghua.csv')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
 
@@ -135,7 +152,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
     def _blg_func_demo(self):
         try:
-            os.system('notepad ' + './demo/building/BlgFunction.txt')
+            os.system('start notepad ' + './demo/building/BlgFunction.txt')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
 
@@ -253,7 +270,6 @@ class MyMainWindow(QtWidgets.QMainWindow):
         except:
             QMessageBox.warning(self, '错误', '结果提取失败！')
 
-
     ########## transport ##########
     def _tran_ipt(self):
         self.tranIptPath, filetype = QFileDialog.getOpenFileName(self, '打开', './',
@@ -317,7 +333,80 @@ class MyMainWindow(QtWidgets.QMainWindow):
         except:
             QMessageBox.warning(self, '错误', '结果提取失败！')
 
-    # TODO: other functions
+    ########## lifeline ##########
+    def _life_ipt(self):
+        self.lifeIptPath = QFileDialog.getExistingDirectory(self, '打开', './')
+        self.ui.lineEdit_life_ipt.setText(self.lifeIptPath)
+
+    def _life_demo(self):
+        rootDir = os.getcwd()
+        try:
+            os.system('explorer.exe ' + rootDir + '\\demo\\lifeline\\全部数据')
+        except:
+            QMessageBox.warning(self, '错误', '无法打开示例文件夹！')
+
+    def _life_sim(self):
+        rootDir = os.getcwd()
+        workDir = rootDir + '/lifeline'
+
+        try:
+            dst = workDir + '/全部数据'
+            shutil.copytree(self.lifeIptPath, dst)
+        except:
+            QMessageBox.warning(self, '错误', '输入文件获取失败！')
+
+        try:
+            os.chdir(workDir)
+            os.system('matlab -nosplash -nodesktop -r ' + 'demomain')
+            os.chdir(rootDir)
+        except:
+            QMessageBox.warning(self, '错误', '无法启动生命线模拟！')
+
+    def _life_post(self):
+        if not os.path.exists('./results'):
+            os.mkdir('./results')
+        if not os.path.exists('./results/lifeline'):
+            os.mkdir('./results/lifeline')
+
+        try:
+            src = './lifeline/输出数据'
+            dst = './results/lifeline/输出数据'
+            shutil.copytree(src, dst)
+            QMessageBox.information(self, '信息', '结果提取完成！')
+        except:
+            QMessageBox.warning(self, '错误', '结果提取失败！')
+
+    ########## criteria ##########
+    def _cr_sim(self):
+        rootDir = os.getcwd()
+        workDir = rootDir + '/criteria'
+
+        # 获取结果，写入表格
+        resultDir = './results'
+        excelFile = workDir + '/平台整体指标文件.xlsx'
+        cr_post.postprocess(resultDir, excelFile)
+
+        # 运行
+        try:
+            os.chdir(workDir)
+            os.system('matlab -nosplash -nodesktop -r ' + 'indicator')
+            os.chdir(rootDir)
+        except:
+            QMessageBox.warning(self, '错误', '无法启动韧性指标计算！')
+
+    def _cr_post(self):
+        if not os.path.exists('./results'):
+            os.mkdir('./results')
+        if not os.path.exists('./results/criteria'):
+            os.mkdir('./results/criteria')
+
+        try:
+            src = './criteria/平台整体指标文件.xlsx'
+            dst = './results/criteria/平台整体指标文件.xlsx'
+            shutil.copy(src, dst)
+            QMessageBox.information(self, '信息', '结果提取完成！')
+        except:
+            QMessageBox.warning(self, '错误', '结果提取失败！')
 
 
 def exec():

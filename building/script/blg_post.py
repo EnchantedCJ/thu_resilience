@@ -140,11 +140,11 @@ def _cal_status(pga, blgs):
         if status[func]['total'] != 0:
             status[func]['level'] = status[func]['usable'] / status[func]['total']
         else:
-            status[func]['level'] = 1
+            status[func]['level'] = 1.0
         if status[func]['downtimes'] != []:
             status[func]['downtime'] = sorted(status[func]['downtimes'])[int(status[func]['total'] * 0.9) - 1]
         else:
-            status[func]['downtime'] = 0
+            status[func]['downtime'] = 0.0
     if numBlg != len(blgs):
         print('建筑数量不对应！')
 
