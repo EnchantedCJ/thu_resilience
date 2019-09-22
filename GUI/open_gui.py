@@ -189,7 +189,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
                     for line in fin.readlines():
                         temp = line.split()
                         temp[13] = str(pga * 10 * reduct[direction])  # pga
-                        newline = '\t'.join(temp)
+                        newline = '\t'.join(temp) + '\n'
                         fout.write(newline)
                     fin.close()
                     fout.close()
