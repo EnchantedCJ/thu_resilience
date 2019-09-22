@@ -351,6 +351,10 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
         try:
             dst = workDir + '/全部数据'
+            try:
+                shutil.rmtree(dst)
+            except:
+                pass
             shutil.copytree(self.lifeIptPath, dst)
         except:
             QMessageBox.warning(self, '错误', '输入文件获取失败！')
@@ -371,6 +375,10 @@ class MyMainWindow(QtWidgets.QMainWindow):
         try:
             src = './lifeline/输出数据'
             dst = './results/lifeline/输出数据'
+            try:
+                shutil.rmtree(dst)
+            except:
+                pass
             shutil.copytree(src, dst)
             QMessageBox.information(self, '信息', '结果提取完成！')
         except:
