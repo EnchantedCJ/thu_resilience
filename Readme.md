@@ -8,6 +8,8 @@ Description: 校园韧性评估系统平台（GUI）
 
 ## 使用说明
 
+运行thu_resilience.exe
+
 ### 菜单栏
 
 #### 文件

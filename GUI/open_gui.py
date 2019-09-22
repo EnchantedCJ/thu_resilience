@@ -297,7 +297,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
         try:
             os.chdir(workDir)
-            os.system('matlab -nosplash -nodesktop -r ' + 'transportation02_20iter')
+            os.system('matlab -r ' + 'transportation02_20iter')
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动交通模拟（测试）！')
@@ -314,7 +314,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
         try:
             os.chdir(workDir)
-            os.system('matlab -nosplash -nodesktop -r ' + 'transportation02')
+            os.system('matlab -r ' + 'transportation02')
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动交通模拟！')
@@ -357,7 +357,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
         try:
             os.chdir(workDir)
-            os.system('matlab -nosplash -nodesktop -r ' + 'demomain')
+            os.system('matlab -r ' + 'demomain')
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动生命线模拟！')
@@ -389,7 +389,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
         # 运行
         try:
             os.chdir(workDir)
-            os.system('matlab -nosplash -nodesktop -r ' + 'indicator')
+            os.system('matlab -r ' + 'indicator')
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动韧性指标计算！')
