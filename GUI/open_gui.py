@@ -6,8 +6,8 @@ import subprocess
 
 from GUI import main_window
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QFileDialog
-from PyQt5.QtCore import QProcess
+from PyQt5.QtWidgets import QMessageBox, QFileDialog, QProgressDialog
+from PyQt5.QtCore import Qt
 
 from building.script.EDPsFormatter import EDPsFormatterExec
 from building.script import blg_post
@@ -67,24 +67,28 @@ class MyMainWindow(QtWidgets.QMainWindow):
             os.system('explorer.exe ' + rootDir + '\\results')
         except:
             QMessageBox.warning(self, '错误', '无法打开结果文件夹！')
+            return
 
     def _menu_help_doc_use(self):
         try:
             os.system('start notepad Readme.md')
         except:
             QMessageBox.warning(self, '错误', '无法打开说明文档！')
+            return
 
     def _menu_help_doc_blg(self):
         try:
-            os.system('start ./doc/building/doc_building.txt')
+            os.system('start ./doc/building/doc_building.docx')
         except:
             QMessageBox.warning(self, '错误', '无法打开说明文档！')
+            return
 
     def _menu_help_doc_tran(self):
         try:
             os.system('start ./doc/transport/使用说明02.docx')
         except:
             QMessageBox.warning(self, '错误', '无法打开说明文档！')
+            return
 
     def _menu_help_doc_life(self):
         pass
@@ -99,7 +103,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
                                 '\n'
                                 '开发者：清华大学土木工程系暨建设管理系\n'
                                 '版本信息：v0.4 （内测）\n'
-                                '最近更新：2019/9/20\n'
+                                '最近更新：2019/9/22\n'
                                 '\n'
                                 'Copyright © 2019-2019 北京市地震局.')
 
@@ -123,12 +127,14 @@ class MyMainWindow(QtWidgets.QMainWindow):
             self.ui.lineEdit_blg.setText(self.blgPath)
         else:
             QMessageBox.warning(self, '错误', '建筑属性文件（震害模拟）应为txt格式！')
+            return
 
     def _blg_eg(self):
         try:
             os.system('start notepad ' + './demo/building/BlgAttributes.txt')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
+            return
 
     def _blg_le_open(self):
         self.blglePath, filetype = QFileDialog.getOpenFileName(self, '打开', './', 'All Files (*);;CSV Files (*.csv)')
@@ -136,12 +142,14 @@ class MyMainWindow(QtWidgets.QMainWindow):
             self.ui.lineEdit_blgle.setText(self.blglePath)
         else:
             QMessageBox.warning(self, '错误', '建筑属性文件（损失估计）应为csv格式！')
+            return
 
     def _blg_le_eg(self):
         try:
             os.system('start notepad ' + './demo/building/BuildingsInfo-Tsinghua.csv')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
+            return
 
     def _blg_func_open(self):
         self.blgFuncPath, filetype = QFileDialog.getOpenFileName(self, '打开', './', 'All Files (*);;Text Files (*.txt)')
@@ -149,12 +157,14 @@ class MyMainWindow(QtWidgets.QMainWindow):
             self.ui.lineEdit_blg_func.setText(self.blgFuncPath)
         else:
             QMessageBox.warning(self, '错误', '建筑功能文件（用于韧性指标）应为txt格式！')
+            return
 
     def _blg_func_demo(self):
         try:
             os.system('start notepad ' + './demo/building/BlgFunction.txt')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
+            return
 
     def _blg_tha(self):
         rootDir = os.getcwd()
@@ -195,6 +205,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
                     fout.close()
         except:
             QMessageBox.warning(self, '错误', '建筑属性文件（震害模拟）获取失败！')
+            return
 
         # computing
         try:
@@ -204,6 +215,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
                     subprocess.Popen('Flexural_Shear_X.exe', creationflags=subprocess.CREATE_NEW_CONSOLE)
         except:
             QMessageBox.warning(self, '错误', '无法启动震害模拟！')
+            return
 
         os.chdir(rootDir)
 
@@ -220,8 +232,18 @@ class MyMainWindow(QtWidgets.QMainWindow):
                     shutil.copy(self.blglePath, dst)
         except:
             QMessageBox.warning(self, '错误', '建筑属性文件（损失估计）获取失败！')
+            return
 
         ## edps
+        progress = QProgressDialog(self)
+        progress.setWindowTitle("请稍等")
+        progress.setLabelText("正在准备计算文件...")
+        progress.setCancelButtonText("取消")
+        progress.setMinimumDuration(0)
+        progress.setWindowModality(Qt.WindowModal)
+        progress.setRange(0, 6)
+        i=0
+        progress.setValue(i)
         try:
             for pga in [0.2, 0.3, 0.4]:
                 for direction in ['x', 'y']:
@@ -229,8 +251,14 @@ class MyMainWindow(QtWidgets.QMainWindow):
                     dirOut = workDir + '/' + str(pga) + '/' + direction + '/input/Edps.txt'
                     dirAttr = rootDir + '/building/tha/' + str(pga) + '/' + direction + '/inputs/BlgAttributes.txt'
                     EDPsFormatterExec.main(dirIn, dirOut, dirAttr, {'numEQ': 11, 'idr2comp': True})
+                    i+=1
+                    progress.setValue(i)
+                    if progress.wasCanceled():
+                        QMessageBox.warning(self, "提示", "已取消")
+                        return
         except:
             QMessageBox.warning(self, '错误', 'EDP文件获取失败！')
+            return
 
         # computing
         try:
@@ -240,6 +268,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
                     subprocess.Popen('LossEstimator.exe', creationflags=subprocess.CREATE_NEW_CONSOLE)
         except:
             QMessageBox.warning(self, '错误', '无法启动损失估计！')
+            return
 
         os.chdir(rootDir)
 
@@ -269,6 +298,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             QMessageBox.information(self, '信息', '结果提取完成！')
         except:
             QMessageBox.warning(self, '错误', '结果提取失败！')
+            return
 
     ########## transport ##########
     def _tran_ipt(self):
@@ -278,12 +308,14 @@ class MyMainWindow(QtWidgets.QMainWindow):
             self.ui.lineEdit_tran_ipt.setText(self.tranIptPath)
         else:
             QMessageBox.warning(self, '错误', '交通输入文件应为xlsx格式！')
+            return
 
     def _tran_demo(self):
         try:
             os.system('start ./demo/transport/input_sampleQHY.xlsx')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件！')
+            return
 
     def _tran_sim_test(self):
         rootDir = os.getcwd()
@@ -294,6 +326,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             shutil.copy(self.tranIptPath, dst)
         except:
             QMessageBox.warning(self, '错误', '输入文件获取失败！')
+            return
 
         try:
             os.chdir(workDir)
@@ -301,6 +334,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动交通模拟（测试）！')
+            return
 
     def _tran_sim(self):
         rootDir = os.getcwd()
@@ -311,6 +345,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             shutil.copy(self.tranIptPath, dst)
         except:
             QMessageBox.warning(self, '错误', '输入文件获取失败！')
+            return
 
         try:
             os.chdir(workDir)
@@ -318,6 +353,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动交通模拟！')
+            return
 
     def _tran_post(self):
         if not os.path.exists('./results'):
@@ -332,6 +368,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             QMessageBox.information(self, '信息', '结果提取完成！')
         except:
             QMessageBox.warning(self, '错误', '结果提取失败！')
+            return
 
     ########## lifeline ##########
     def _life_ipt(self):
@@ -344,6 +381,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             os.system('explorer.exe ' + rootDir + '\\demo\\lifeline\\全部数据')
         except:
             QMessageBox.warning(self, '错误', '无法打开示例文件夹！')
+            return
 
     def _life_sim(self):
         rootDir = os.getcwd()
@@ -358,6 +396,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             shutil.copytree(self.lifeIptPath, dst)
         except:
             QMessageBox.warning(self, '错误', '输入文件获取失败！')
+            return
 
         try:
             os.chdir(workDir)
@@ -365,6 +404,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动生命线模拟！')
+            return
 
     def _life_post(self):
         if not os.path.exists('./results'):
@@ -383,6 +423,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             QMessageBox.information(self, '信息', '结果提取完成！')
         except:
             QMessageBox.warning(self, '错误', '结果提取失败！')
+            return
 
     ########## criteria ##########
     def _cr_sim(self):
@@ -401,6 +442,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             os.chdir(rootDir)
         except:
             QMessageBox.warning(self, '错误', '无法启动韧性指标计算！')
+            return
 
     def _cr_post(self):
         if not os.path.exists('./results'):
@@ -415,6 +457,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
             QMessageBox.information(self, '信息', '结果提取完成！')
         except:
             QMessageBox.warning(self, '错误', '结果提取失败！')
+            return
 
 
 def exec():

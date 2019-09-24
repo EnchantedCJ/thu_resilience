@@ -1,12 +1,17 @@
+# python
 .idea/
 **/__pycache__
 
+# my
 test/
 *.exe
 *.m
 *.dll
 **/bin
+*.xlsx
+*.xls
 
+# release
 build/
 dist/
 myDist/
