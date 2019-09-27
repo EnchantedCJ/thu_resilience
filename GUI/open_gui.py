@@ -28,6 +28,8 @@ class MyMainWindow(QtWidgets.QMainWindow):
         self.ui.actions_help_doc_use.triggered.connect(self._menu_help_doc_use)
         self.ui.action_help_doc_blg.triggered.connect(self._menu_help_doc_blg)
         self.ui.action_help_doc_tran.triggered.connect(self._menu_help_doc_tran)
+        self.ui.action_help_doc_life.triggered.connect(self._menu_help_doc_life)
+        self.ui.action_help_doc_cri.triggered.connect(self._menu_help_doc_cr)
         self.ui.action_help_version.triggered.connect(self._menu_help_version)
 
         ########## building ##########
@@ -85,16 +87,24 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
     def _menu_help_doc_tran(self):
         try:
-            os.system('start ./doc/transport/使用说明02.docx')
+            os.system('start ./doc/transport/doc_transportation.docx')
         except:
             QMessageBox.warning(self, '错误', '无法打开说明文档！')
             return
 
     def _menu_help_doc_life(self):
-        pass
+        try:
+            os.system('start ./doc/lifeline/doc_lifeline.docx')
+        except:
+            QMessageBox.warning(self, '错误', '无法打开说明文档！')
+            return
 
     def _menu_help_doc_cr(self):
-        pass
+        try:
+            os.system('start ./doc/criteria/doc_indicator.docx')
+        except:
+            QMessageBox.warning(self, '错误', '无法打开说明文档！')
+            return
 
     def _menu_help_version(self):
         QMessageBox.information(self,
@@ -102,8 +112,8 @@ class MyMainWindow(QtWidgets.QMainWindow):
                                 '韧性评价集成平台\n'
                                 '\n'
                                 '开发者：清华大学土木工程系暨建设管理系\n'
-                                '版本信息：v0.4 （内测）\n'
-                                '最近更新：2019/9/22\n'
+                                '版本信息：v1.0\n'
+                                '最近更新：2019/9/27\n'
                                 '\n'
                                 'Copyright © 2019-2019 北京市地震局.')
 
@@ -242,7 +252,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
         progress.setMinimumDuration(0)
         progress.setWindowModality(Qt.WindowModal)
         progress.setRange(0, 6)
-        i=0
+        i = 0
         progress.setValue(i)
         try:
             for pga in [0.2, 0.3, 0.4]:
@@ -251,7 +261,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
                     dirOut = workDir + '/' + str(pga) + '/' + direction + '/input/Edps.txt'
                     dirAttr = rootDir + '/building/tha/' + str(pga) + '/' + direction + '/inputs/BlgAttributes.txt'
                     EDPsFormatterExec.main(dirIn, dirOut, dirAttr, {'numEQ': 11, 'idr2comp': True})
-                    i+=1
+                    i += 1
                     progress.setValue(i)
                     if progress.wasCanceled():
                         QMessageBox.warning(self, "提示", "已取消")

@@ -1,8 +1,8 @@
 # thu_resilience
 
-Version: 0.4
+Version: 1.0
 
-Last update: 2019-09-22
+Last update: 2019-09-27
 
 Description: 校园韧性评估系统平台（GUI）
 
@@ -38,8 +38,8 @@ Description: 校园韧性评估系统平台（GUI）
   - 使用说明
   - 建筑
   - 交通
-  - 生命线：TODO
-  - 韧性指标：TODO
+  - 生命线
+  - 韧性指标
 - 版本信息
 
 ### 建筑系统
