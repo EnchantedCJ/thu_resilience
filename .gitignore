@@ -6,10 +6,15 @@
 test/
 *.exe
 *.m
+*.asv
 *.dll
 **/bin
 *.xlsx
 *.xls
+demo/
+results/
+**/loss
+**/tha
 
 # release
 build/

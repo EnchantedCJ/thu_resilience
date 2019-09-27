@@ -1,1 +1,0 @@
-  BuildingID     GroundMotion    Feeling state of 1~N floors 

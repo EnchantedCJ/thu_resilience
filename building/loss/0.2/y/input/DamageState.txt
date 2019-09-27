@@ -1,4 +1,0 @@
-  BuildingID     GroundMotion    Damage state of 1~N floors 
-      0  Elcentro-normal    0    0    0    0
-      1  Elcentro-normal    1    0    0    0    0    0    0
-      2  Elcentro-normal    1    1    1

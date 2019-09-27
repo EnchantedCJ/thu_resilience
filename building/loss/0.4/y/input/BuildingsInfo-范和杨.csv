@@ -1,4 +1,0 @@
-version,1,,,,,,,,,,,,,,
-id,name,strutype,year,occupancy,nStory,storyheight,area,replacementCost,clpsMedian,clpsDispersion,residualMedian,residualDispersion,intensity,autoGenComponents,totalRepairTime(day)
-201,Fan's frame,C1,1990,office,6,3.7,352.8,4509616.219,999,0.5,999,0.3,4,0,180
-202,Yang's tallbuilding,C2,1990,residence,18,2.9,787,25561704,999,0.5,0.0125,0.3,4,0,360
