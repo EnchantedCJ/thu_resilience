@@ -109,7 +109,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
     def _menu_help_version(self):
         QMessageBox.information(self,
                                 '版本信息',
-                                '韧性评价集成平台\n'
+                                '北京市地震安全韧性评估系统\n'
                                 '\n'
                                 '开发者：清华大学土木工程系暨建设管理系\n'
                                 '版本信息：v1.0\n'

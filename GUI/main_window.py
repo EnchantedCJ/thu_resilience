@@ -281,7 +281,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "THU Resilience"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "北京市地震安全韧性评估系统"))
         self.groupBox.setTitle(_translate("MainWindow", "输入"))
         self.label_2.setText(_translate("MainWindow", "建筑属性（震害模拟）"))
         self.pushButton_blgOpen.setText(_translate("MainWindow", "浏览"))
