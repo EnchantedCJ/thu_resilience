@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMessageBox, QFileDialog, QProgressDialog
 from PyQt5.QtCore import Qt
 
 from building.script.EDPsFormatter import EDPsFormatterExec
-from building.script import blg_post
+from building.script import blg_post_m
 from criteria.script import cr_post
 
 
@@ -303,7 +303,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
                     shutil.copy(src, dst)
 
             resultDir = './results/building'
-            blg_post.postprocess(self.blgFuncPath, resultDir)
+            blg_post_m.postprocess(self.blgFuncPath, resultDir)
 
             QMessageBox.information(self, '信息', '结果提取完成！')
         except:
