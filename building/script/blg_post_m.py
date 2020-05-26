@@ -45,7 +45,7 @@ def postprocess(blgFuncPath, resultDir):
                         result['lossMedian'] = float(temp[2])
                         result['lossP16'] = float(temp[5])
                         result['lossP84'] = float(temp[6])
-                        result['downtimeMedian'] = float(temp[2])
+                        result['downtimeMedian'] = float(temp[3])
                         result['downtimeP16'] = float(temp[7])
                         result['downtimeP84'] = float(temp[8])
                         result['hurtMedian'] = float(temp[9])
