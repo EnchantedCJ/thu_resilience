@@ -35,10 +35,11 @@ def postprocess(resultDir, excelFile):
         downtimes = []
 
         columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+        columns_idx = [3, 2, 1, 4, 6, 7, 8, 5]
         for i in range(8):
-            col = columns[i + 1]
+            col = columns[columns_idx[i]]
             levels.append(resultwb['system_dur'][col + rrow].value)
-            col = columns[i]
+            col = columns[columns_idx[i] - 1]
             downtimes.append(resultwb['restore'][col + rrow].value)
 
         for i in range(8):
